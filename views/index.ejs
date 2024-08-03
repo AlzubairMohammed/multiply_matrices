@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Multiplication</title>
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <h1>Matrix Multiplication</h1>
+    <form action="/multiply" method="POST">
+        <h3>Matrix 1:</h3>
+        <textarea name="matrix1" rows="4" cols="50" required>[ [2, 1], [4, 5] ]</textarea>
+        <h3>Matrix 2:</h3>
+        <textarea name="matrix2" rows="4" cols="50" required>[ [1, 0, 2], [5, 3, 4] ]</textarea>
+        <br><br>
+        <button type="submit">Multiply</button>
+    </form>
+    <% if (typeof result !== 'undefined') { %>
+        <h2>Result:</h2>
+        <pre><%= JSON.stringify(result, null, 2) %></pre>
+    <% } %>
+</body>
+</html>
+

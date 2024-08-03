@@ -1,71 +1,20 @@
 const express = require("express");
-const swaggerUI = require("swagger-ui-express");
-const swaggerJsDoc = require("swagger-jsdoc");
+const { multiplyMatrices } = require("./multiplyMatrices");
+const bodyParser = require("body-parser");
 const app = express();
-/**
- * @swagger
- * components:
- *   schemas:
- *     matrices:
- *       type: object
- *       required:
- *         - matrix1
- *         - matrix2
- *       properties:
- *         matrix1:
- *           type: array
- *           description: The auto-generated id of the matrix
- *         matrix2:
- *           type: array
- *           description: The auto-generated id of the matrix
- *       example:
- *         matrix1: [[1,2,3], [4,2,1], [8,9,2]]
- *         matrix2: [[1,2,3],[4,2,1],[8,9,2]]
- */
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
-/**
- * @swagger
- * /multiply_matrices:
- *   post:
- *     summary: matrices
- *     tags: [matrices]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/matrices'
- *     responses:
- *       200:
- *         description: Done successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/matrices'
- *       500:
- *         description: Some server error
- */
-app.post("/multiply_matrices", (req, res) => {
-  return res.json(req.body);
+app.get("/", (req, res) => {
+  res.render("index");
 });
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Matrices multiply API",
-      version: "1.0.0",
-      description:
-        "A simple matrix multiplication API built by Alzubair Mohammed.",
-    },
-    servers: [
-      {
-        url: "/",
-      },
-    ],
-  },
-  apis: ["./*.js"],
-};
 
-const specs = swaggerJsDoc(options);
-app.use("/", swaggerUI.serve, swaggerUI.setup(specs));
+app.post("/multiply", (req, res) => {
+  //   return res.json(req.body);
+  //   req.body = JSON.parse(req.body);
+  let matrix1 = JSON.parse(req.body.matrix1);
+  let matrix2 = JSON.parse(req.body.matrix2);
+  let result = multiplyMatrices(matrix1, matrix2);
+  res.render("index", { result });
+});
 app.listen(7070, () => console.log(`App listen in 7070`));
