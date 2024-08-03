@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Matrix Multiplication</h1>
+    <h6>Alzubair Mohammed. All Rights Reserved. </h6>
     <form action="/multiply" method="POST">
         <h3>Matrix 1:</h3>
         <textarea name="matrix1" rows="4" cols="50" required>[ [2, 1], [4, 5] ]</textarea>
@@ -16,7 +17,6 @@
         <br><br>
         <button type="submit">Multiply</button>
     </form>
-    <h6>Alzubair Mohammed. All Rights Reserved. </h6>
     <% if (typeof result !== 'undefined') { %>
         <h2>Result:</h2>
         <pre><%= JSON.stringify(result, null, 2) %></pre>
